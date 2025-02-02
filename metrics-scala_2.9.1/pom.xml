@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>com.yammer.metrics</groupId>
-    <artifactId>metrics-scala_2.9.1</artifactId>
+    <artifactId>metrics-scala_2.12.18</artifactId>
 
     <properties>
-        <scala.version>2.9.1</scala.version>
+        <scala.version>2.12.18</scala.version>
     </properties>
 
     <dependencies>
@@ -29,9 +29,9 @@
             <version>${scala.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.codahale</groupId>
-            <artifactId>simplespec_${scala.version}</artifactId>
-            <version>[0.5.0,0.6.0)</version>
+            <groupId>com.simple</groupId>
+            <artifactId>simplespec_2.12</artifactId>
+            <version>0.9.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -92,3 +92,4 @@
         </plugins>
     </build>
 </project>
+

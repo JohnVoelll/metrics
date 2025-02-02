@@ -9,13 +9,7 @@ import org.aopalliance.intercept.MethodInvocation;
  * given name (or the method's name, if none was provided), and which measures
  * the rate at which the annotated method is invoked.
  */
-public class MeteredInterceptor implements MethodInterceptor {
-    private final MeterMetric meter;
-
-    public MeteredInterceptor(MeterMetric meter) {
-        this.meter = meter;
-    }
-
+public record MeteredInterceptor(MeterMetric meter) implements MethodInterceptor {
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         meter.mark();

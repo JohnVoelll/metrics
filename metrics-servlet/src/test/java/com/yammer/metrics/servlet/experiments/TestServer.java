@@ -17,7 +17,7 @@ public class TestServer {
     private static final CounterMetric COUNTER1 = Metrics.newCounter(TestServer.class, "wah", "doody");
     private static final CounterMetric COUNTER2 = Metrics.newCounter(TestServer.class, "woo");
     static {
-        Metrics.newGauge(TestServer.class, "boo", new GaugeMetric<Integer>() {
+        Metrics.newGauge(TestServer.class, "boo", new GaugeMetric<>() {
             @Override
             public Integer value() {
                 throw new RuntimeException("asplode!");

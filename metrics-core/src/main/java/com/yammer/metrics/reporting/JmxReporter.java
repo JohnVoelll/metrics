@@ -357,5 +357,4 @@ public class JmxReporter extends AbstractReporter {
         }
         registeredBeans.clear();
     }
-
 }

@@ -3,11 +3,11 @@ package com.yammer.metrics.logback;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class InstrumentedAppenderTest {
     final LoggerContext lc = new LoggerContext();
@@ -15,7 +15,7 @@ public class InstrumentedAppenderTest {
 
     final InstrumentedAppender appender = new InstrumentedAppender();
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         appender.setContext(lc);
         appender.start();

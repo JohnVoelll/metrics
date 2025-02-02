@@ -15,9 +15,10 @@ public class InstrumentedQueuedThreadPool extends QueuedThreadPool {
         registry.newGauge(QueuedThreadPool.class, "percent-idle", new GaugeMetric<Integer>() {
             @Override
             public Integer value() {
-                final double percent = getThreads() > 0 ?
-                        getIdleThreads() / ((double) getThreads()) :
-                        0.0;
+                final double percent = switch(getThreads()) {
+                    case 0 -> 0.0;
+                    default -> getIdleThreads() / ((double) getThreads());
+                };
                 return (int) (percent * 100);
             }
         });

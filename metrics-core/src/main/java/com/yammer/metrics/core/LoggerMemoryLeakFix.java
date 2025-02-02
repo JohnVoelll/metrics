@@ -69,7 +69,7 @@ class LoggerMemoryLeakFix implements Runnable {
             final String name = names.nextElement();
             final Logger logger = LogManager.getLogManager().getLogger(name);
             LOGGER.fine("Removing null kid entries from logger \"" + name + "\"");
-            if (logger != null) {
+            if (logger instanceof Logger) {
                 try {
                     final Object lock = lockField.get(logger);
                     if (lock == null) {

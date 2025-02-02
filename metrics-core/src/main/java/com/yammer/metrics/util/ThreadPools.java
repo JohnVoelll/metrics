@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 public class ThreadPools
 {
     private final ConcurrentMap<String, ScheduledExecutorService> threadPools =
-            new ConcurrentHashMap<String, ScheduledExecutorService>(100);
+            new ConcurrentHashMap<>(100);
 
     /**
      * Creates a new scheduled thread pool of a given size with the given name,
@@ -50,5 +50,4 @@ public class ThreadPools
             threadPools.clear();
         }
     }
-
 }

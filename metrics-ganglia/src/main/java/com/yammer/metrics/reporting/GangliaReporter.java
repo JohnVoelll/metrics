@@ -64,7 +64,6 @@ public class GangliaReporter extends AbstractReporter {
     private DatagramSocket socket;
     private String hostLabel;
 
-
     /**
      * Enables the ganglia reporter to send data for the default metrics registry
      * to ganglia server with the specified period.
@@ -193,7 +192,6 @@ public class GangliaReporter extends AbstractReporter {
                 }
             }
         }
-
     }
 
     private void sendToGanglia(String metricName, String metricType, String metricValue, String groupName, String units) {

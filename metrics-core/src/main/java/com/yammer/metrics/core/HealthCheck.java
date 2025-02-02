@@ -4,7 +4,7 @@ package com.yammer.metrics.core;
  * A template class for an encapsulated service health check.
  */
 public abstract class HealthCheck {
-    public static class Result {
+    public static final class Result {
         private static final Result HEALTHY = new Result(true, null, null);
         private final boolean healthy;
         private final String message;

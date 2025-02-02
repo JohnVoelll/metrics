@@ -12,7 +12,7 @@ import javax.servlet.ServletContextListener;
  * the context is destroyed.
  */
 public class MetricsServletContextListener implements ServletContextListener {
-    @SuppressWarnings("deprecation")
+    @Deprecated(since = "1.3")
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         // for backwards compatibility

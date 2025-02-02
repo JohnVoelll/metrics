@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class GaugeMetricTest {
-    final GaugeMetric<String> gauge = new GaugeMetric<String>() {
+    final GaugeMetric<String> gauge = new GaugeMetric<>() {
         @Override
         public String value() {
             return "woo";

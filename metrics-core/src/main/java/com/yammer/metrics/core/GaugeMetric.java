@@ -20,5 +20,5 @@ public interface GaugeMetric<T> extends Metric {
      *
      * @return the metric's current value
      */
-    public abstract T value();
+    T value();
 }

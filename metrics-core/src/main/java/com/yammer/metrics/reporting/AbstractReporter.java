@@ -29,6 +29,6 @@ public abstract class AbstractReporter implements Runnable {
      * Stops the reporter and closes any internal resources.
      */
     public void shutdown() {
-
+        tickThread.shutdown();
     }
 }

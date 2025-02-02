@@ -23,16 +23,12 @@ public class InstrumentedAppender extends AppenderBase<ILoggingEvent> {
     @Override
     protected void append(ILoggingEvent event) {
         ALL_METER.mark();
-        if (event.getLevel().toInt() == Level.TRACE_INT) {
-            TRACE_METER.mark();
-        } else if (event.getLevel().toInt() == Level.DEBUG_INT) {
-            DEBUG_METER.mark();
-        } else if (event.getLevel().toInt() == Level.INFO_INT) {
-            INFO_METER.mark();
-        } else if (event.getLevel().toInt() == Level.WARN_INT) {
-            WARN_METER.mark();
-        } else if (event.getLevel().toInt() == Level.ERROR_INT) {
-            ERROR_METER.mark();
+        switch (event.getLevel().toInt()) {
+            case Level.TRACE_INT -> TRACE_METER.mark();
+            case Level.DEBUG_INT -> DEBUG_METER.mark();
+            case Level.INFO_INT -> INFO_METER.mark();
+            case Level.WARN_INT -> WARN_METER.mark();
+            case Level.ERROR_INT -> ERROR_METER.mark();
         }
     }
 }

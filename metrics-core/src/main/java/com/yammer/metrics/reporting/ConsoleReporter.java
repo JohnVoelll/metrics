@@ -106,16 +106,16 @@ public class ConsoleReporter extends AbstractReporter {
                     out.println(':');
 
                     final Metric metric = subEntry.getValue();
-                    if (metric instanceof GaugeMetric<?>) {
-                        printGauge((GaugeMetric<?>) metric);
-                    } else if (metric instanceof CounterMetric) {
-                        printCounter((CounterMetric) metric);
-                    } else if (metric instanceof HistogramMetric) {
-                        printHistogram((HistogramMetric) metric);
-                    } else if (metric instanceof MeterMetric) {
-                        printMetered((MeterMetric) metric);
-                    } else if (metric instanceof TimerMetric) {
-                        printTimer((TimerMetric) metric);
+                    if (metric instanceof GaugeMetric<?> gauge) {
+                        printGauge(gauge);
+                    } else if (metric instanceof CounterMetric counter) {
+                        printCounter(counter);
+                    } else if (metric instanceof HistogramMetric histogram) {
+                        printHistogram(histogram);
+                    } else if (metric instanceof MeterMetric meter) {
+                        printMetered(meter);
+                    } else if (metric instanceof TimerMetric timer) {
+                        printTimer(timer);
                     }
                     out.println();
                 }
@@ -180,22 +180,14 @@ public class ConsoleReporter extends AbstractReporter {
     }
 
     private String abbrev(TimeUnit unit) {
-        switch (unit) {
-            case NANOSECONDS:
-                return "ns";
-            case MICROSECONDS:
-                return "us";
-            case MILLISECONDS:
-                return "ms";
-            case SECONDS:
-                return "s";
-            case MINUTES:
-                return "m";
-            case HOURS:
-                return "h";
-            case DAYS:
-                return "d";
-        }
-        throw new IllegalArgumentException("Unrecognized TimeUnit: " + unit);
+        return switch (unit) {
+            case NANOSECONDS -> "ns";
+            case MICROSECONDS -> "us";
+            case MILLISECONDS -> "ms";
+            case SECONDS -> "s";
+            case MINUTES -> "m";
+            case HOURS -> "h";
+            case DAYS -> "d";
+        };
     }
 }

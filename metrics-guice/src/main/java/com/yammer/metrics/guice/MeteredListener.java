@@ -24,9 +24,9 @@ public class MeteredListener implements TypeListener {
                          TypeEncounter<T> encounter) {
         for (Method method : literal.getRawType().getMethods()) {
             final Metered annotation = method.getAnnotation(Metered.class);
-            if (annotation != null) {
-                final String name = annotation.name().isEmpty() ? method.getName() : annotation.name();
-                final MeterMetric meter = metricsRegistry.newMeter(literal.getRawType(), name, annotation.eventType(), annotation.rateUnit());
+            if (annotation instanceof Metered m) {
+                final String name = m.name().isEmpty() ? method.getName() : m.name();
+                final MeterMetric meter = metricsRegistry.newMeter(literal.getRawType(), name, m.eventType(), m.rateUnit());
                 encounter.bindInterceptor(Matchers.only(method), new MeteredInterceptor(meter));
             }
         }

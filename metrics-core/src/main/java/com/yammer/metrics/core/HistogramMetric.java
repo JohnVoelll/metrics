@@ -59,8 +59,7 @@ public class HistogramMetric implements Metric {
     private final AtomicLong _sum = new AtomicLong();
     // These are for the Welford algorithm for calculating running variance
     // without floating-point doom.
-    private final AtomicReference<double[]> variance =
-            new AtomicReference<double[]>(new double[]{-1, 0}); // M, S
+    private final AtomicReference<double[]> variance = new AtomicReference<>(new double[]{-1, 0}); // M, S
     private final AtomicLong count = new AtomicLong();
 
     /**
@@ -182,7 +181,6 @@ public class HistogramMetric implements Metric {
         final double[] scores = new double[percentiles.length];
         for (int i = 0; i < scores.length; i++) {
             scores[i] = 0.0;
-
         }
 
         if (count() > 0) {

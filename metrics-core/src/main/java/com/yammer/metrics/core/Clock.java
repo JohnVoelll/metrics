@@ -34,7 +34,7 @@ public interface Clock {
      * Another implementation, uses {@link ThreadMXBean#getCurrentThreadCpuTime()}
      */
     public static class CpuTime implements Clock {
-        private static ThreadMXBean threadMxBean = ManagementFactory.getThreadMXBean();
+        private static final ThreadMXBean threadMxBean = ManagementFactory.getThreadMXBean();
 
         @Override
         public long tick() {

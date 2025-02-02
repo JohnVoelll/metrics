@@ -26,27 +26,27 @@ public class InstrumentedBlockingChannelConnector extends BlockingChannelConnect
         setPort(port);
         this.duration = registry.newTimer(BlockingChannelConnector.class,
                                           "connection-duration",
-                                          Integer.toString(port),
+                                          String.valueOf(port),
                                           TimeUnit.MILLISECONDS,
                                           TimeUnit.SECONDS);
         this.accepts = registry.newMeter(BlockingChannelConnector.class,
                                          "accepts",
-                                         Integer.toString(port),
+                                         String.valueOf(port),
                                          "connections",
                                          TimeUnit.SECONDS);
         this.connects = registry.newMeter(BlockingChannelConnector.class,
                                           "connects",
-                                          Integer.toString(port),
-                                          "connections",
+                                          String.valueOf(port),
+                                          String.valueOf(port),
                                           TimeUnit.SECONDS);
         this.disconnects = registry.newMeter(BlockingChannelConnector.class,
                                              "disconnects",
-                                             Integer.toString(port),
+                                             String.valueOf(port),
                                              "connections",
                                              TimeUnit.SECONDS);
         this.connections = registry.newCounter(BlockingChannelConnector.class,
                                                "active-connections",
-                                               Integer.toString(port));
+                                               String.valueOf(port));
     }
 
     @Override

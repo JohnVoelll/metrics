@@ -154,12 +154,9 @@ public class TimerMetricTest {
 
     @Test
     public void timingCallableInstances() throws Exception {
-        final String value = timer.time(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                Thread.sleep(50);
-                return "one";
-            }
+        final String value = timer.time(() -> {
+            Thread.sleep(50);
+            return "one";
         });
 
         assertThat("returns the result of the callable",

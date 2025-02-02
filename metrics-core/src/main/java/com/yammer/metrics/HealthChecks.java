@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * A manager class for health checks.
  */
-public class HealthChecks {
+public final class HealthChecks {
     private static final HealthCheckRegistry DEFAULT_REGISTRY = new HealthCheckRegistry();
 
     private HealthChecks() { /* unused */ }

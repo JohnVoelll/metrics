@@ -384,6 +384,7 @@ public class MetricsRegistry {
         }
         return (TimerMetric) existingMetric;
     }
+
     /**
      * Returns an unmodifiable map of all metrics and their names.
      *
@@ -432,10 +433,10 @@ public class MetricsRegistry {
     public void removeMetric(MetricName name) {
         final Metric metric = metrics.remove(name);
         if (metric != null) {
-            if (metric instanceof MeterMetric) {
-                ((MeterMetric) metric).stop();
-            } else if (metric instanceof TimerMetric) {
-                ((TimerMetric) metric).stop();
+            if (metric instanceof MeterMetric meterMetric) {
+                meterMetric.stop();
+            } else if (metric instanceof TimerMetric timerMetric) {
+                timerMetric.stop();
             }
         }
     }
@@ -447,7 +448,7 @@ public class MetricsRegistry {
      * @return a new {@link ConcurrentMap}
      */
     protected ConcurrentMap<MetricName, Metric> newMetricsMap() {
-        return new ConcurrentHashMap<MetricName, Metric>();
+        return new ConcurrentHashMap<>();
     }
 
     @SuppressWarnings("unchecked")

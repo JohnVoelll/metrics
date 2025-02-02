@@ -25,27 +25,27 @@ public class InstrumentedSocketConnector extends SocketConnector {
         setPort(port);
         this.duration = registry.newTimer(SocketConnector.class,
                                                     "connection-duration",
-                                                    Integer.toString(port),
+                                                    String.valueOf(port),
                                                     TimeUnit.MILLISECONDS,
                                                     TimeUnit.SECONDS);
         this.accepts = registry.newMeter(SocketConnector.class,
                                          "accepts",
-                                         Integer.toString(port),
+                                         String.valueOf(port),
                                          "connections",
                                          TimeUnit.SECONDS);
         this.connects = registry.newMeter(SocketConnector.class,
                                                    "connects",
-                                                   Integer.toString(port),
+                                                   String.valueOf(port),
                                                    "connections",
                                                    TimeUnit.SECONDS);
         this.disconnects = registry.newMeter(SocketConnector.class,
                                                    "disconnects",
-                                                   Integer.toString(port),
+                                                   String.valueOf(port),
                                                    "connections",
                                                    TimeUnit.SECONDS);
         this.connections = registry.newCounter(SocketConnector.class,
                                                "active-connections",
-                                               Integer.toString(port));
+                                               String.valueOf(port));
     }
 
     @Override

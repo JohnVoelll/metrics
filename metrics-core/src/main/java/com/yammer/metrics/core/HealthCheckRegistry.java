@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentMap;
  * A registry for health checks.
  */
 public class HealthCheckRegistry {
-    private final ConcurrentMap<String, HealthCheck> healthChecks = new ConcurrentHashMap<String, HealthCheck>();
+    private final ConcurrentMap<String, HealthCheck> healthChecks = new ConcurrentHashMap<>();
 
     /**
      * Registers an application {@link HealthCheck}.
@@ -39,7 +39,7 @@ public class HealthCheckRegistry {
      * @return a map of the health check results
      */
     public Map<String, Result> runHealthChecks() {
-        final Map<String, Result> results = new TreeMap<String, Result>();
+        final Map<String, Result> results = new TreeMap<>();
         for (Entry<String, HealthCheck> entry : healthChecks.entrySet()) {
             final Result result = entry.getValue().execute();
             results.put(entry.getKey(), result);

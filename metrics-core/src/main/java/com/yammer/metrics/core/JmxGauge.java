@@ -8,8 +8,8 @@ import javax.management.*;
  */
 public class JmxGauge implements GaugeMetric<Object> {
     private static final MBeanServer SERVER = ManagementFactory.getPlatformMBeanServer();
-    private ObjectName name;
-    private String attribute;
+    private final ObjectName name;
+    private final String attribute;
 
     public JmxGauge(String name, String attribute) throws MalformedObjectNameException {
         this.name = new ObjectName(name);

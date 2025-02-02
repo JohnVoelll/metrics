@@ -24,9 +24,9 @@ public class TimedListener implements TypeListener {
                          TypeEncounter<T> encounter) {
         for (Method method : literal.getRawType().getMethods()) {
             final Timed annotation = method.getAnnotation(Timed.class);
-            if (annotation != null) {
-                final String name = annotation.name().isEmpty() ? method.getName() : annotation.name();
-                final TimerMetric timer = metricsRegistry.newTimer(literal.getRawType(), name, annotation.durationUnit(), annotation.rateUnit());
+            if (annotation instanceof Timed timedAnnotation) {
+                final String name = timedAnnotation.name().isEmpty() ? method.getName() : timedAnnotation.name();
+                final TimerMetric timer = metricsRegistry.newTimer(literal.getRawType(), name, timedAnnotation.durationUnit(), timedAnnotation.rateUnit());
                 encounter.bindInterceptor(Matchers.only(method), new TimedInterceptor(timer));
             }
         }

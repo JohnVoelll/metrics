@@ -30,12 +30,7 @@ import com.yammer.metrics.core.CounterMetric;
  * Thread.setDefaultUncaughtExceptionHandler(ohNoIDidntKnowAboutThis)
  * </pre>
  */
-public class DeathRattleExceptionHandler implements Thread.UncaughtExceptionHandler {
-  final private CounterMetric deathRattle;
-  public DeathRattleExceptionHandler(CounterMetric deathRattle) {
-    this.deathRattle = deathRattle;
-  }
-
+public record DeathRattleExceptionHandler(CounterMetric deathRattle) implements Thread.UncaughtExceptionHandler {
   @Override
   public void uncaughtException(Thread t, Throwable e) {
     deathRattle.inc();

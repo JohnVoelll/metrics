@@ -313,7 +313,6 @@ public class EWMATest {
                    is(closeTo(0.22072766, 0.000001)));
     }
 
-
     private void elapseMinute(EWMA ewma) {
         for (int i = 1; i <= 12; i++) {
             ewma.tick();

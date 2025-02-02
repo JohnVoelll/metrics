@@ -23,19 +23,22 @@ public class ExampleRunner {
                 while (true) {
                     final File file = JOBS.poll(1, TimeUnit.MINUTES);
                     QUEUE_DEPTH.dec();
-                    if (file.isDirectory()) {
-                        final List<File> contents = new DirectoryLister(file).list();
-                        DIRECTORY_SIZE.update(contents.size());
-                        QUEUE_DEPTH.inc(contents.size());
-                        JOBS.addAll(contents);
-                    }
+                    String result = switch(file) {
+                        case File f when f.isDirectory() -> {
+                            final List<File> contents = new DirectoryLister(file).list();
+                            DIRECTORY_SIZE.update(contents.size());
+                            QUEUE_DEPTH.inc(contents.size());
+                            JOBS.addAll(contents);
+                            yield "";
+                        }
+                        default -> "";
+                    };
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-
 
     public static void main(String[] args) throws Exception {
         ConsoleReporter.enable(10, TimeUnit.SECONDS);

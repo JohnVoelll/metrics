@@ -138,10 +138,12 @@ public class InstrumentedHandler extends HandlerWrapper {
 
             @Override
             public void onTimeout(Continuation continuation) {
-                final Request request = ((AsyncContinuation) continuation).getBaseRequest();
-                updateResponses(request);
-                if (!continuation.isResumed()) {
-                    activeSuspendedRequests.dec();
+                if (continuation instanceof AsyncContinuation ac) {
+                    final Request request = ac.getBaseRequest();
+                    updateResponses(request);
+                    if (!continuation.isResumed()) {
+                        activeSuspendedRequests.dec();
+                    }
                 }
             }
         };
@@ -211,26 +213,18 @@ public class InstrumentedHandler extends HandlerWrapper {
     }
 
     private TimerMetric requestTimer(String method) {
-        if (GET.equalsIgnoreCase(method)) {
-            return getRequests;
-        } else if (POST.equalsIgnoreCase(method)) {
-            return postRequests;
-        } else if (PUT.equalsIgnoreCase(method)) {
-            return putRequests;
-        } else if (HEAD.equalsIgnoreCase(method)) {
-            return headRequests;
-        } else if (DELETE.equalsIgnoreCase(method)) {
-            return deleteRequests;
-        } else if (OPTIONS.equalsIgnoreCase(method)) {
-            return optionsRequests;
-        } else if (TRACE.equalsIgnoreCase(method)) {
-            return traceRequests;
-        } else if (CONNECT.equalsIgnoreCase(method)) {
-            return connectRequests;
-        } else if (PATCH.equalsIgnoreCase(method)) {
-            return patchRequests;
-        }
-        return otherRequests;
+        return switch (method.toUpperCase()) {
+            case GET -> getRequests;
+            case POST -> postRequests;
+            case PUT -> putRequests;
+            case HEAD -> headRequests;
+            case DELETE -> deleteRequests;
+            case OPTIONS -> optionsRequests;
+            case TRACE -> traceRequests;
+            case CONNECT -> connectRequests;
+            case PATCH -> patchRequests;
+            default -> otherRequests;
+        };
     }
 
     private void updateResponses(Request request) {

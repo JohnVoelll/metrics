@@ -27,19 +27,14 @@ public class DirectoryLister {
 
     public List<File> list() throws Exception {
         counter.inc();
-        final File[] list = timer.time(new Callable<File[]>() {
-            @Override
-            public File[] call() throws Exception {
-                return directory.listFiles();
-            }
-        });
+        final File[] list = timer.time(() -> directory.listFiles());
         counter.dec();
 
         if (list == null) {
             return Collections.emptyList();
         }
 
-        final List<File> result = new ArrayList<File>(list.length);
+        final List<File> result = new ArrayList<>(list.length);
         for (File file : list) {
             meter.mark();
             result.add(file);

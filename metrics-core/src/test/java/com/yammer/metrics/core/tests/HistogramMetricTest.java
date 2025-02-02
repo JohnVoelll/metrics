@@ -97,5 +97,4 @@ public class HistogramMetricTest {
                    histogram.values().size(),
                    is(10000));
     }
-
 }

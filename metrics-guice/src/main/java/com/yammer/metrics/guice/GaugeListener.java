@@ -24,12 +24,11 @@ public class GaugeListener implements TypeListener {
             if (annotation != null) {
                 if (method.getParameterTypes().length == 0) {
                     final String name = annotation.name().isEmpty() ? method.getName() : annotation.name();
-                    encounter.register(new GaugeInjectionListener<I>(metricsRegistry, literal, name, method));
+                    encounter.register(new GaugeInjectionListener<>(metricsRegistry, literal, name, method));
                 } else {
                     encounter.addError("Method %s is annotated with @Gauge but requires parameters.", method);
                 }
             }
         }
     }
-
 }

@@ -33,22 +33,24 @@ public class MetricsServlet extends HttpServlet {
     public static final String ATTR_NAME_METRICS_REGISTRY = MetricsServlet.class.getSimpleName() + ":" + MetricsRegistry.class.getSimpleName();
     public static final String ATTR_NAME_HEALTHCHECK_REGISTRY = MetricsServlet.class.getSimpleName() + ":" + HealthCheckRegistry.class.getSimpleName();
 
-    private static final String TEMPLATE = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n" +
-                                           "        \"http://www.w3.org/TR/html4/loose.dtd\">\n" +
-                                           "<html>\n" +
-                                           "<head>\n" +
-                                           "  <title>Metrics</title>\n" +
-                                           "</head>\n" +
-                                           "<body>\n" +
-                                           "  <h1>Operational Menu</h1>\n" +
-                                           "  <ul>\n" +
-                                           "    <li><a href=\"{0}{1}?pretty=true\">Metrics</a></li>\n" +
-                                           "    <li><a href=\"{2}{3}\">Ping</a></li>\n" +
-                                           "    <li><a href=\"{4}{5}\">Threads</a></li>\n" +
-                                           "    <li><a href=\"{6}{7}\">Healthcheck</a></li>\n" +
-                                           "  </ul>\n" +
-                                           "</body>\n" +
-                                           "</html>";
+    private static final String TEMPLATE = """
+            <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                    "http://www.w3.org/TR/html4/loose.dtd">
+            <html>
+            <head>
+              <title>Metrics</title>
+            </head>
+            <body>
+              <h1>Operational Menu</h1>
+              <ul>
+                <li><a href="{0}{1}?pretty=true">Metrics</a></li>
+                <li><a href="{2}{3}">Ping</a></li>
+                <li><a href="{4}{5}">Threads</a></li>
+                <li><a href="{6}{7}">Healthcheck</a></li>
+              </ul>
+            </body>
+            </html>""";
+
     public static final String HEALTHCHECK_URI = "/healthcheck";
     public static final String METRICS_URI = "/metrics";
     public static final String PING_URI = "/ping";
@@ -121,8 +123,8 @@ public class MetricsServlet extends HttpServlet {
         }
 
         final Object factory = config.getServletContext().getAttribute(JsonFactory.class.getCanonicalName());
-        if (factory != null && factory instanceof JsonFactory) {
-            this.factory = (JsonFactory) factory;
+        if (factory instanceof JsonFactory jsonFactory) {
+            this.factory = jsonFactory;
         }
     }
 

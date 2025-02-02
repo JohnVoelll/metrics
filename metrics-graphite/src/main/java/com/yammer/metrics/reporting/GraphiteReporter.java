@@ -226,16 +226,16 @@ public class GraphiteReporter extends AbstractReporter {
                 final Metric metric = subEntry.getValue();
                 if (metric != null) {
                     try {
-                        if (metric instanceof GaugeMetric<?>) {
-                            printGauge((GaugeMetric<?>) metric, simpleName, epoch);
-                        } else if (metric instanceof CounterMetric) {
-                            printCounter((CounterMetric) metric, simpleName, epoch);
-                        } else if (metric instanceof HistogramMetric) {
-                            printHistogram((HistogramMetric) metric, simpleName, epoch);
-                        } else if (metric instanceof MeterMetric) {
-                            printMetered((MeterMetric) metric, simpleName, epoch);
-                        } else if (metric instanceof TimerMetric) {
-                            printTimer((TimerMetric) metric, simpleName, epoch);
+                        if (metric instanceof GaugeMetric<?> gauge) {
+                            printGauge(gauge, simpleName, epoch);
+                        } else if (metric instanceof CounterMetric counter) {
+                            printCounter(counter, simpleName, epoch);
+                        } else if (metric instanceof HistogramMetric histogram) {
+                            printHistogram(histogram, simpleName, epoch);
+                        } else if (metric instanceof MeterMetric meter) {
+                            printMetered(meter, simpleName, epoch);
+                        } else if (metric instanceof TimerMetric timer) {
+                            printTimer(timer, simpleName, epoch);
                         }
                     } catch (Exception ignored) {
                         LOG.error("Error printing regular metrics:", ignored);

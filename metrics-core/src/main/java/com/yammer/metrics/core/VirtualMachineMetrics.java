@@ -15,14 +15,7 @@ import static java.lang.management.ManagementFactory.*;
  * A collection of Java Virtual Machine metrics.
  */
 public class VirtualMachineMetrics {
-    public static class GarbageCollector {
-        private final long runs, timeMS;
-
-        public GarbageCollector(long runs, long timeMS) {
-            this.runs = runs;
-            this.timeMS = timeMS;
-        }
-
+    public static record GarbageCollector(long runs, long timeMS) {
         public long getRuns() {
             return runs;
         }
@@ -63,7 +56,7 @@ public class VirtualMachineMetrics {
      *         is being used
      */
     public static Map<String, Double> memoryPoolUsage() {
-        final Map<String, Double> pools = new TreeMap<String, Double>();
+        final Map<String, Double> pools = new TreeMap<>();
         for (MemoryPoolMXBean bean : getMemoryPoolMXBeans()) {
             final double max = bean.getUsage().getMax() == -1 ?
                     bean.getUsage().getCommitted() :
@@ -149,7 +142,7 @@ public class VirtualMachineMetrics {
      * @return a map of garbage collector names to garbage collector information
      */
     public static Map<String, GarbageCollector> garbageCollectors() {
-        final Map<String, GarbageCollector> gcs = new HashMap<String, GarbageCollector>();
+        final Map<String, GarbageCollector> gcs = new HashMap<>();
         for (GarbageCollectorMXBean bean : getGarbageCollectorMXBeans()) {
             gcs.put(bean.getName(), new GarbageCollector(bean.getCollectionCount(), bean.getCollectionTime()));
         }
@@ -165,7 +158,7 @@ public class VirtualMachineMetrics {
     public static Set<String> deadlockedThreads() {
         final long[] threadIds = getThreadMXBean().findDeadlockedThreads();
         if (threadIds != null) {
-            final Set<String> threads = new HashSet<String>();
+            final Set<String> threads = new HashSet<>();
             final ThreadInfo[] infos = getThreadMXBean().getThreadInfo(threadIds, 100);
             for (ThreadInfo info : infos) {
                 final StringBuilder stackTrace = new StringBuilder();
@@ -194,7 +187,7 @@ public class VirtualMachineMetrics {
      * @return a map of thread states to percentages
      */
     public static Map<State, Double> threadStatePercentages() {
-        final Map<State, Double> conditions = new HashMap<State, Double>();
+        final Map<State, Double> conditions = new HashMap<>();
         for (State state : State.values()) {
             conditions.put(state, 0.0);
         }
@@ -209,7 +202,7 @@ public class VirtualMachineMetrics {
                 liveCount++;
             }
         }
-        for (State state : new ArrayList<State>(conditions.keySet())) {
+        for (State state : new ArrayList<>(conditions.keySet())) {
             conditions.put(state, conditions.get(state) / liveCount);
         }
 
